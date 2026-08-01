@@ -11,10 +11,14 @@ const routes_1 = require("./routes");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8000;
+const codespaceName = process.env.CODESPACE_NAME;
+const apiBaseUrl = codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev`
+    : 'http://localhost:8000';
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.get('/api/health', (_req, res) => {
-    res.json({ status: 'ok' });
+    res.json({ status: 'ok', apiBaseUrl });
 });
 app.use('/api/users', routes_1.usersRouter);
 app.use('/api/teams', routes_1.teamsRouter);
@@ -25,6 +29,7 @@ const startServer = async () => {
     await (0, database_1.connectDatabase)();
     app.listen(port, () => {
         console.log(`Backend listening on port ${port}`);
+        console.log(`API base URL: ${apiBaseUrl}`);
     });
 };
 startServer().catch((error) => {
