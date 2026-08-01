@@ -7,6 +7,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const database_1 = require("../config/database");
 const models_1 = require("../models");
 const seedDatabase = async () => {
+    console.log('Seed the octofit_db database with test data');
     try {
         await (0, database_1.connectDatabase)();
         await Promise.all([

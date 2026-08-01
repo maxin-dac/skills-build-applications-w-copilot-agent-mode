@@ -3,6 +3,8 @@ import { connectDatabase } from '../config/database';
 import { Activity, LeaderboardEntry, Team, User, Workout } from '../models';
 
 const seedDatabase = async (): Promise<void> => {
+  console.log('Seed the octofit_db database with test data');
+
   try {
     await connectDatabase();
 
