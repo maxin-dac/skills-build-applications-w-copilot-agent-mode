@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 
 const getApiBaseUrl = () => {
   const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
-  return codespaceName ? `https://${codespaceName}-8000.app.github.dev` : 'http://localhost:8000';
+  const baseUrl = codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev/api/activities`
+    : 'http://localhost:8000/api/activities';
+  return baseUrl;
 };
 
 export function Activities() {
@@ -13,7 +16,7 @@ export function Activities() {
   useEffect(() => {
     const loadActivities = async () => {
       try {
-        const response = await fetch(`${getApiBaseUrl()}/api/activities/`);
+        const response = await fetch(`${getApiBaseUrl()}`);
         if (!response.ok) {
           throw new Error('Unable to fetch activities');
         }
